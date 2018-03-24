@@ -76,7 +76,7 @@ class FrameCollector {
 				 * create images out of frameinformation
 				 **/
 				Page.loadEventFired(async () => {
-					await this.browser.sleep(2000);
+					await this.browser.sleep(2500);
 					await Page.stopScreencast().catch(reject);
 					await Promise.race([this.browser.stop(), this.browser.sleep(3000)]);
 					frames.forEach((frame) => {
