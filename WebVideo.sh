@@ -23,6 +23,9 @@ echo " * DEVICE: $DEVICE"
 echo "============================="
 echo
 
+mkdir -p $IMAGES
+mkdir -p $VIDEOS
+
 # check protocol url1
 if [[ ! $URL1 =~ ^https?:// ]]; then
 	URL1=http://${URL1}
