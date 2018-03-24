@@ -1,6 +1,6 @@
 # Benutzerdokumentation
 
-## Vorraussetzungen
+## Voraussetzungen
 
 Folgende Programme werden für die Ausführung des Tools benötigt:
 
