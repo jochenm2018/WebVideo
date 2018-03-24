@@ -65,12 +65,6 @@ class FrameCollector {
 				/* emulate network with the given preset */
 				await this.browser.emulateNetwork(this.config.networkOptions[networkPreset.toLowerCase()]).catch(reject);
 
-				/* make DevTools start recording frames and navigate to the given url */
-				Page.startScreencast({"format": this.imageFormat}).then(() => {
-					console.log("FrameCollector: navigate to " + url);
-					Page.navigate({"url": url}).catch(reject);
-				});
-
 				/* collect frame information and push into frames array */
 				Page.screencastFrame(async (frame) => {
 					await Page.screencastFrameAck({'sessionId': frame.sessionId}).catch(reject);
@@ -91,6 +85,12 @@ class FrameCollector {
 
 					resolve();
 				});
+
+				/* make DevTools start recording frames and navigate to the given url */
+				await Page.startScreencast({"format": this.imageFormat});
+				console.log("FrameCollector: navigate to " + url);
+				Page.navigate({"url": url}).catch(reject);
+
 			});
 		}
 		return _run.apply(this);
