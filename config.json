@@ -1,0 +1,48 @@
+{
+	"generalSettings": {
+		"videoPath": "videos",
+		"imagePath": "images",
+		"imageFormat": "png",
+		"defaultDevice": "desktop",
+		"defaultNetwork": "cable",
+		"defaultIdentifier1": "vid1",
+		"defaultIdentifier2": "vid2"
+	},
+	"videoSettings": {
+		"transition": false,
+		"videoBitrate": 1024,
+		"videoCodec": "libx264",
+		"size": "640x?",
+		"outputOptions": ["-pix_fmt yuv420p"],
+		"format": "mp4"
+	},
+	"networkOptions": {
+		"cable": { "offline": false, "latency": 28, "downloadThroughput": 625000, "uploadThroughput": 0},
+		"dsl": { "offline": false, "latency": 50, "downloadThroughput": 187500, "uploadThroughput": 0},
+		"3g": { "offline": false, "latency": 400, "downloadThroughput": 50000, "uploadThroughput": 12500}
+	},
+	"deviceOptions": {
+		"desktop": {
+			"ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36",
+			"touch": false,
+			"metrics": {
+				"deviceScaleFactor": 2,
+				"width": 1920,
+				"height": 1080,
+				"mobile": false
+			}
+		},
+		"mobile": {
+			"ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A5297c Safari/602.1",
+			"touch": true,
+			"metrics": {
+				"deviceScaleFactor": 2,
+				"width": 375,
+				"height": 667,
+				"screenWidth": 375,
+				"screenHeight": 667,
+				"mobile": true
+			}
+		}
+	}
+}

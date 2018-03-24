@@ -1,0 +1,17 @@
+{
+  "name": "WebVideoTool",
+  "version": "1.0.0",
+  "description": "https://chromedevtools.github.io/debugger-protocol-viewer/tot/Emulation/",
+  "repository": {
+    "type": "git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chrome-launcher": "^0.3.1",
+    "videoshow": "^0.1.11"
+  },
+  "devDependencies": {
+    "chrome-remote-interface": "^0.25.5"
+  }
+}
