@@ -6,13 +6,19 @@
 echo
 SETTINGS=$(jq -r '.generalSettings' ./config.json)
 URL1=${1:-$URL1}
-URL2=${2:-$URL2}
-NETWORK=${3:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
-DEVICE=${4:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
+NETWORK=${2:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
+DEVICE=${3:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
 NAME1=${NAME1:-$(echo $SETTINGS | jq -r '.defaultIdentifier1')}
 NAME2=${NAME2:-$(echo $SETTINGS | jq -r '.defaultIdentifier2')}
 IMAGES=$(echo $SETTINGS | jq -r '.imagePath')
 VIDEOS=$(echo $SETTINGS | jq -r '.videoPath')
+
+# comparison enabled / use different args
+if [ ! $COMPARE_OFF ]; then
+	URL2=${2:-$URL2}
+	NETWORK=${3:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
+	DEVICE=${4:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
+fi
 
 echo "        WebVideo Tool        "
 echo "============================="
@@ -25,18 +31,6 @@ echo
 
 mkdir -p $IMAGES
 mkdir -p $VIDEOS
-
-# check protocol url1
-if [[ ! $URL1 =~ ^https?:// ]]; then
-	URL1=http://${URL1}
-	echo "Kein Protokoll angegeben. Es wird http:// verwendet: ${URL1}"
-fi
-
-# check protocol url2
-if [[ ! $URL2 =~ ^https?:// ]]; then
-	URL2=http://${URL2}
-	echo "Kein Protokoll angegeben. Es wird http:// verwendet: ${URL2}"
-fi
 
 # remove files from image and video directory
 function cleanup() {
@@ -61,25 +55,41 @@ function compareVideos() {
    $VIDEOS/final.mp4
 }
 
+# check protocol url1
+if [[ ! $URL1 =~ ^https?:// ]]; then
+	URL1=http://${URL1}
+	echo "Kein Protokoll angegeben. Es wird http:// verwendet: ${URL1}"
+fi
+
 cleanup
 clearProcesses
 
-# collect frames
+# process URL1
 node src/FrameCollector.js $NAME1 $URL1 $NETWORK $DEVICE
-clearProcesses
-node src/FrameCollector.js $NAME2 $URL2 $NETWORK $DEVICE
-
-# create videos
 node src/VideoCreator.js $NAME1
-node src/VideoCreator.js $NAME2
 
-# make video comparison
-compareVideos $NAME1 $NAME2 > /dev/null 2>&1
+clearProcesses
 
-echo
-if [ -e $VIDEOS/final.mp4 ]; then
-	echo "The final video was saved to $VIDEOS/final.mp4"
-	echo "Have fun watching! :)"
-else
-	echo "An error occured while creating the video comparison.."
+# process URL2 and comparison
+if [[ ! $COMPARE_OFF  ]]; then
+
+	# check protocol url2
+	if [[ ! $URL2 =~ ^https?:// ]]; then
+		URL2=http://${URL2}
+		echo "Kein Protokoll angegeben. Es wird http:// verwendet: ${URL2}"
+	fi
+
+	node src/FrameCollector.js $NAME2 $URL2 $NETWORK $DEVICE
+	node src/VideoCreator.js $NAME2
+
+	# make video comparison
+	compareVideos $NAME1 $NAME2 > /dev/null 2>&1
+
+	echo
+	if [[ -e $VIDEOS/final.mp4 ]]; then
+		echo "The final video was saved to $VIDEOS/final.mp4"
+		echo "Have fun watching! :)"
+	else
+		echo "An error occured while creating the video comparison.."
+	fi
 fi
