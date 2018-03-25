@@ -1,5 +1,6 @@
 # Benutzerdokumentation
-
+  
+  
 ## Anforderungen
 
 Folgende Programme werden für die Ausführung des Tools benötigt:
@@ -9,6 +10,8 @@ Folgende Programme werden für die Ausführung des Tools benötigt:
 * FFmpeg
 * Google Chrome
 
+Die Installationsanleitungen für genannte Programme können über deren öffentliche Dokumentation eingesehen werden.  
+  
 ## Installationsanweisung
 
 Das Projekt kann mit Hilfe von Git geklont werden.
@@ -17,8 +20,8 @@ Das Projekt kann mit Hilfe von Git geklont werden.
 
 Im Projekt benötigte Abhängigkeiten können mit Projektverzeichnis mit Hilfe von NPM installiert werden.
 
-> *npm install*
-
+> *npm install*  
+  
 ## Bedienung
 
 ### Vergleichsvideo erstellen
@@ -31,7 +34,7 @@ Um ein Vergleichs-Video anlegen zu können, welches die Ladevorgänge von zwei W
 
 **Hinweis**: Gibt man eine URL ohne Protokoll an, so wird automatisch “http” verwendet.
 
-Die dabei entstandenen Bild- und Videodateien standardmäßig in den Ordnern “videos” und “images” abgelegt.
+Die dabei entstandenen Bild- und Videodateien standardmäßig in den Ordnern “videos” und “images” abgelegt.  
 
 ### Einzelnes Video erstellen
 
