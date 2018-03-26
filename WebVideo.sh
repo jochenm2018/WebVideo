@@ -6,19 +6,22 @@
 echo
 SETTINGS=$(jq -r '.generalSettings' ./config.json)
 URL1=${1:-$URL1}
-NETWORK=${2:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
-DEVICE=${3:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
+
+if [ ! $COMPARE_OFF ]; then
+	# comparison enabled
+	URL2=${2:-$URL2}
+	NETWORK=${3:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
+	DEVICE=${4:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
+else
+	# comparison disabled
+	NETWORK=${2:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
+	DEVICE=${3:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
+fi
+
 NAME1=${NAME1:-$(echo $SETTINGS | jq -r '.defaultIdentifier1')}
 NAME2=${NAME2:-$(echo $SETTINGS | jq -r '.defaultIdentifier2')}
 IMAGES=$(echo $SETTINGS | jq -r '.imagePath')
 VIDEOS=$(echo $SETTINGS | jq -r '.videoPath')
-
-# comparison enabled / use different args
-if [ ! $COMPARE_OFF ]; then
-	URL2=${2:-$URL2}
-	NETWORK=${3:-${NETWORK:-$(echo $SETTINGS | jq -r '.defaultNetwork')}}
-	DEVICE=${4:-${DEVICE:-$(echo $SETTINGS | jq -r '.defaultDevice')}}
-fi
 
 echo "        WebVideo Tool        "
 echo "============================="
