@@ -19,7 +19,7 @@
 	"networkOptions": {
 		"cable": { "offline": false, "latency": 28, "downloadThroughput": 625000, "uploadThroughput": 0},
 		"dsl": { "offline": false, "latency": 50, "downloadThroughput": 187500, "uploadThroughput": 0},
-		"3g": { "offline": false, "latency": 400, "downloadThroughput": 50000, "uploadThroughput": 12500}
+		"3g": { "offline": false, "latency": 300, "downloadThroughput": 125000, "uploadThroughput": 0}
 	},
 	"deviceOptions": {
 		"desktop": {
