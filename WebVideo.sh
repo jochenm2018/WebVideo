@@ -37,7 +37,6 @@ mkdir -p $VIDEOS
 
 # remove files from image and video directory
 function cleanup() {
-	pkill -f google
 	rm $IMAGES/*
 	rm $VIDEOS/*
 }
